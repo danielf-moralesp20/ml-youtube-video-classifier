@@ -1,5 +1,7 @@
 # local package
 -e .
+dvc==2.10.0
+dvc[gdrive]
 
 # external requirements
 click
