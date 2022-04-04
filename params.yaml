@@ -1,0 +1,19 @@
+data_load:
+  # Default feature names
+  # - TITLE: title
+  # - DESCRIPTION: description
+  # Default target name: category
+  datasets:
+    [
+      {
+        dir: "data/raw/YouTube Titles and description using youtube api.csv",
+        feature_names: { title: "Title", description: "Description" },
+        target: "Category",
+      },
+      {
+        dir: "data/raw/Youtube Video Dataset.csv",
+        feature_names: { title: "Title", description: "Description" },
+        target: "Category",
+      },
+      { dir: "data/raw/youtube.csv" },
+    ]

@@ -1,0 +1,27 @@
+schema: '2.0'
+stages:
+  make_dataset:
+    cmd: python src/data/make_dataset.py --config params.yaml
+    deps:
+    - path: src/data/make_dataset.py
+      md5: eed6cf6fd1669f776e57abd30720c8f2
+      size: 1690
+    params:
+      params.yaml:
+        data_load:
+          datasets:
+          - dir: data/raw/YouTube Titles and description using youtube api.csv
+            feature_names:
+              title: Title
+              description: Description
+            target: Category
+          - dir: data/raw/Youtube Video Dataset.csv
+            feature_names:
+              title: Title
+              description: Description
+            target: Category
+          - dir: data/raw/youtube.csv
+    outs:
+    - path: data/interim/youtube.csv
+      md5: 456b6da45a72feb079c83a4e26fcd61f
+      size: 20820603
