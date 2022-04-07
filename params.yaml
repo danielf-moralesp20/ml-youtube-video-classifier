@@ -1,4 +1,4 @@
-data_load:
+make_dataset:
   # Default feature names
   # - TITLE: title
   # - DESCRIPTION: description

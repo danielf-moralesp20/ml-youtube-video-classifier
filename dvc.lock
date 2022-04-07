@@ -4,11 +4,11 @@ stages:
     cmd: python src/data/make_dataset.py --config params.yaml
     deps:
     - path: src/data/make_dataset.py
-      md5: eed6cf6fd1669f776e57abd30720c8f2
-      size: 1690
+      md5: 4bc9d58a8f798d57d10b7c2acfce6fc2
+      size: 1630
     params:
       params.yaml:
-        data_load:
+        make_dataset:
           datasets:
           - dir: data/raw/YouTube Titles and description using youtube api.csv
             feature_names:
@@ -25,3 +25,19 @@ stages:
     - path: data/interim/youtube.csv
       md5: 456b6da45a72feb079c83a4e26fcd61f
       size: 20820603
+  build_features:
+    cmd: python src/features/build_features.py --config params.yaml
+    deps:
+    - path: data/interim/youtube.csv
+      md5: 456b6da45a72feb079c83a4e26fcd61f
+      size: 20820603
+    - path: src/features/build_features.py
+      md5: eaa76f56cecca11c7dcb7e6ba3214977
+      size: 1389
+    params:
+      params.yaml:
+        build_features:
+    outs:
+    - path: data/processed/youtube.csv
+      md5: 2934c114ba16bdd4352854f36edc3f13
+      size: 19222771

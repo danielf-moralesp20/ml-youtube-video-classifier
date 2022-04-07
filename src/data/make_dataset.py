@@ -14,7 +14,7 @@ def main(config):
     config_content = files.read_yaml(config)
     df_full = pd.DataFrame()
 
-    for dataset in config_content['data_load']['datasets']:
+    for dataset in config_content['make_dataset']['datasets']:
         dataset_dir = dataset['dir']
         target_name = dataset.get('target', 'category')
         feature_title_name = dataset.get(
@@ -35,7 +35,6 @@ def main(config):
 
     logger.info('Saving full dataset')
     df_full.to_csv('data/interim/youtube.csv', index=False)
-    logger.info('Make Dataset process finished successfully')
 
 
 if __name__ == '__main__':

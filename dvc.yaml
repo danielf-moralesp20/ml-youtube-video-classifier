@@ -4,6 +4,6 @@ stages:
     deps:
     - src/data/make_dataset.py
     params:
-    - data_load
+    - make_dataset
     outs:
     - data/interim/youtube.csv
