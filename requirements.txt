@@ -4,7 +4,10 @@ dvc==2.10.0
 dvc[gdrive]
 PyYAML==5.4.1
 pandas==1.4.1
+nltk==3.7
 click==8.1.2
+langdetect==1.0.9
+pyprojroot==0.2.0
 
 # external requirements
 Sphinx

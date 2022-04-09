@@ -2,8 +2,19 @@ stages:
   make_dataset:
     cmd: python src/data/make_dataset.py --config params.yaml
     deps:
-    - src/data/make_dataset.py
+      - src/data/make_dataset.py
     params:
-    - make_dataset
+      - make_dataset
     outs:
-    - data/interim/youtube.csv
+      - data/interim/youtube.csv
+  clean_dataset:
+    cmd:
+      - python -m nltk.downloader stopwords
+      - python src/features/clean_dataset.py --config params.yaml
+    deps:
+      - data/interim/youtube.csv
+      - src/features/clean_dataset.py
+    params:
+      - clean_dataset
+    outs:
+      - data/processed/full_youtube.csv

@@ -17,3 +17,6 @@ make_dataset:
       },
       { dir: "data/raw/youtube.csv" },
     ]
+clean_dataset:
+  english_threshold_confidence: 0.95
+  min_text_length: 20

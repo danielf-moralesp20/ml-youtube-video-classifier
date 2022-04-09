@@ -32,12 +32,32 @@ stages:
       md5: 456b6da45a72feb079c83a4e26fcd61f
       size: 20820603
     - path: src/features/build_features.py
-      md5: eaa76f56cecca11c7dcb7e6ba3214977
-      size: 1389
+      md5: f0390a41a27c6cf03a0fde0f4f888650
+      size: 1756
     params:
       params.yaml:
         build_features:
     outs:
     - path: data/processed/youtube.csv
-      md5: 2934c114ba16bdd4352854f36edc3f13
-      size: 19222771
+      md5: dae7a42a9ab1e40b782521a7bbbcd850
+      size: 18027517
+  clean_dataset:
+    cmd:
+    - python -m nltk.downloader stopwords
+    - python src/features/clean_dataset.py --config params.yaml
+    deps:
+    - path: data/interim/youtube.csv
+      md5: 456b6da45a72feb079c83a4e26fcd61f
+      size: 20820603
+    - path: src/features/clean_dataset.py
+      md5: 5c75794637550542108f267d87c7bdb6
+      size: 2045
+    params:
+      params.yaml:
+        clean_dataset:
+          english_threshold_confidence: 0.95
+          min_text_length: 20
+    outs:
+    - path: data/processed/full_youtube.csv
+      md5: d2dce0601536d9dcd32da76fdbfddb18
+      size: 13571033
