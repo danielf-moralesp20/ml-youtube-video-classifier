@@ -27,19 +27,17 @@ def main(config):
     df_final.description = df.title + ' ' + df.description
     df_final.drop(columns=['title'], inplace=True)
 
-    logger.info('Formatting text')
-    df_final.description = df_final.description.apply(
-        text.drop_stopwords)
-    df_final.description = df_final.description.apply(
-    text.drop_punctuation)
-    df_final.drop(df_final[df_final.description.str.len(
-    ) < config_content['clean_dataset']['min_text_length']].index, inplace=True)
-
     logger.info('Dropping non-english rows')
     df_is_english = df_final.description.apply(text.is_english, args=[
         config_content['clean_dataset']['english_threshold_confidence']
     ])
     df_final.drop(df_final[~df_is_english].index, inplace=True)
+
+    logger.info('Formatting text')
+    df_final['clean_description'] = df_final.description.apply(
+        text.clean_text, args=[config_content['clean_dataset']['min_token_length']])
+    df_final.drop(df_final[df_final.clean_description.str.len(
+    ) < config_content['clean_dataset']['min_tokens_count']].index, inplace=True)
 
     logger.info('Saving full clean dataset')
     df_final.to_csv('data/processed/full_youtube.csv', index=False)

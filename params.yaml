@@ -19,4 +19,5 @@ make_dataset:
     ]
 clean_dataset:
   english_threshold_confidence: 0.95
-  min_text_length: 20
+  min_token_length: 3
+  min_tokens_count: 5

@@ -50,14 +50,15 @@ stages:
       md5: 456b6da45a72feb079c83a4e26fcd61f
       size: 20820603
     - path: src/features/clean_dataset.py
-      md5: 5c75794637550542108f267d87c7bdb6
-      size: 2045
+      md5: 516ed4b6bf54bfe90002167483c048d4
+      size: 2033
     params:
       params.yaml:
         clean_dataset:
           english_threshold_confidence: 0.95
-          min_text_length: 20
+          min_token_length: 3
+          min_tokens_count: 5
     outs:
     - path: data/processed/full_youtube.csv
-      md5: d2dce0601536d9dcd32da76fdbfddb18
-      size: 13571033
+      md5: 8fe4911b0826d9f40e75681385a1ad38
+      size: 34652163

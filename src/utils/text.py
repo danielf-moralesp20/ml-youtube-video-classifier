@@ -1,7 +1,9 @@
 import re
 import string
 from langdetect import detect_langs
+from nltk import SnowballStemmer
 from nltk.corpus import stopwords
+from nltk.tokenize import TweetTokenizer
 
 
 def is_english(text: str, threshold_confidence: float = 0.95) -> bool:
@@ -11,13 +13,14 @@ def is_english(text: str, threshold_confidence: float = 0.95) -> bool:
     return en_lang != None and en_lang.prob >= threshold_confidence
 
 
-def drop_punctuation(text: str) -> str:
-    return re.sub(f'[{string.punctuation}]+', '',  text)
+def clean_text(text: str, min_token_length: int, lang: str = 'english') -> str:
+    ss = SnowballStemmer(language=lang)
 
+    text = re.sub(f'[{string.punctuation}]+', '', text)  # Removing Puntuations
+    tokens = TweetTokenizer(preserve_case=False, reduce_len=True).tokenize(
+        text)  # Tokenization and Case Normalization
+    tokens = [token for token in tokens if token not in stopwords.words(
+        lang) and len(token) >= min_token_length]  # Removing Stopwords
+    tokens = [ss.stem(token) for token in tokens]  # Stemming
 
-def drop_stopwords(text: str, lang: str = 'english') -> str:
-    return ' '.join([word for word in tokenize(text) if word not in stopwords.words(lang)])
-
-
-def tokenize(text):
-    return re.split('\W+', text.lower())
+    return tokens
