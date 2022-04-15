@@ -17,4 +17,4 @@ stages:
     params:
       - clean_dataset
     outs:
-      - data/processed/full_youtube.csv
+      - data/processed/youtube.csv

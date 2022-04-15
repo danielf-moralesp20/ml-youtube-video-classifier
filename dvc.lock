@@ -50,8 +50,8 @@ stages:
       md5: 456b6da45a72feb079c83a4e26fcd61f
       size: 20820603
     - path: src/features/clean_dataset.py
-      md5: 516ed4b6bf54bfe90002167483c048d4
-      size: 2033
+      md5: c19a1e8e5a952b61abadbf3feda0720d
+      size: 2028
     params:
       params.yaml:
         clean_dataset:
@@ -59,6 +59,6 @@ stages:
           min_token_length: 3
           min_tokens_count: 5
     outs:
-    - path: data/processed/full_youtube.csv
-      md5: 8fe4911b0826d9f40e75681385a1ad38
-      size: 34652163
+    - path: data/processed/youtube.csv
+      md5: 1cc4fec6b8a174d06a3b7648506e8202
+      size: 34678252

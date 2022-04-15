@@ -17,10 +17,10 @@ def clean_text(text: str, min_token_length: int, lang: str = 'english') -> str:
     ss = SnowballStemmer(language=lang)
 
     text = re.sub(f'[{string.punctuation}]+', '', text)  # Removing Puntuations
-    tokens = TweetTokenizer(preserve_case=False, reduce_len=True).tokenize(
+    corpus = TweetTokenizer(preserve_case=False, reduce_len=True).tokenize(
         text)  # Tokenization and Case Normalization
-    tokens = [token for token in tokens if token not in stopwords.words(
+    corpus = [token for token in corpus if token not in stopwords.words(
         lang) and len(token) >= min_token_length]  # Removing Stopwords
-    tokens = [ss.stem(token) for token in tokens]  # Stemming
+    corpus = [ss.stem(token) for token in corpus]  # Stemming
 
-    return tokens
+    return corpus

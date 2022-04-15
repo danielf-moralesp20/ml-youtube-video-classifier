@@ -27,7 +27,7 @@ def main(config):
     df_final.description = df.title + ' ' + df.description
     df_final.drop(columns=['title'], inplace=True)
 
-    logger.info('Dropping non-english rows')
+    logger.info('Removing non-english rows')
     df_is_english = df_final.description.apply(text.is_english, args=[
         config_content['clean_dataset']['english_threshold_confidence']
     ])
@@ -40,7 +40,7 @@ def main(config):
     ) < config_content['clean_dataset']['min_tokens_count']].index, inplace=True)
 
     logger.info('Saving full clean dataset')
-    df_final.to_csv('data/processed/full_youtube.csv', index=False)
+    df_final.to_csv('data/processed/youtube.csv', index=False)
 
 
 if __name__ == '__main__':
