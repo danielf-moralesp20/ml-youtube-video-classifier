@@ -40,7 +40,7 @@ def main(config):
     ) < config_content['clean_dataset']['min_tokens_count']].index, inplace=True)
 
     logger.info('Saving full clean dataset')
-    df_final.to_csv('data/processed/youtube.csv', index=False)
+    df_final.to_csv(path.data_dir('processed/youtube.csv'), index=False)
 
 
 if __name__ == '__main__':

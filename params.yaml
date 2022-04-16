@@ -1,7 +1,10 @@
+base:
+  random_state: 20
+
 make_dataset:
   # Default feature names
-  # - TITLE: title
-  # - DESCRIPTION: description
+  # - title: title
+  # - description: description
   # Default target name: category
   datasets:
     [
@@ -17,7 +20,12 @@ make_dataset:
       },
       { dir: "data/raw/youtube.csv" },
     ]
+
 clean_dataset:
   english_threshold_confidence: 0.95
   min_token_length: 3
   min_tokens_count: 5
+
+build_features:
+  test_size: 0.2
+  min_df: 0.05

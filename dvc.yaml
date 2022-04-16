@@ -18,3 +18,14 @@ stages:
       - clean_dataset
     outs:
       - data/processed/youtube.csv
+  build_features:
+    cmd: python src/features/build_features.py --config params.yaml
+    deps:
+      - data/processed/youtube.csv
+      - src/features/build_features.py
+    params:
+      - base
+      - build_features
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
