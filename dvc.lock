@@ -29,11 +29,11 @@ stages:
     cmd: python src/features/build_features.py --config params.yaml
     deps:
     - path: data/processed/youtube.csv
-      md5: e5e9d1c1c9574b9626ee100811650074
-      size: 34636936
+      md5: a7c79d27c25382539d0ba17c5245cf15
+      size: 16821662
     - path: src/features/build_features.py
-      md5: b825f9033a192058c61ad309d97a77b1
-      size: 1967
+      md5: 0e691607243fef53bba1af263825fc00
+      size: 1958
     params:
       params.yaml:
         base:
@@ -43,11 +43,11 @@ stages:
           min_df: 0.05
     outs:
     - path: data/processed/test.csv
-      md5: 33d0109e0b3f91e75535f07e46730424
-      size: 2152079
+      md5: e9b1c8f359cd33954603329d7498925d
+      size: 2086991
     - path: data/processed/train.csv
-      md5: 8376164dbbcc430ae8410f3f7ce2de92
-      size: 8588076
+      md5: 08781aadfec5ebcd9a51ff5fadc73bb7
+      size: 8318992
   clean_dataset:
     cmd:
     - python -m nltk.downloader stopwords
@@ -57,8 +57,8 @@ stages:
       md5: 456b6da45a72feb079c83a4e26fcd61f
       size: 20820603
     - path: src/features/clean_dataset.py
-      md5: 9bfbf472215c70787ed92315e3290549
-      size: 2038
+      md5: 09a7a5acc0416c243048d497f721c5f2
+      size: 2026
     params:
       params.yaml:
         clean_dataset:
@@ -67,5 +67,5 @@ stages:
           min_tokens_count: 5
     outs:
     - path: data/processed/youtube.csv
-      md5: e5e9d1c1c9574b9626ee100811650074
-      size: 34636936
+      md5: a7c79d27c25382539d0ba17c5245cf15
+      size: 16821662

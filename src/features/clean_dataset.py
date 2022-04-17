@@ -24,19 +24,19 @@ def main(config):
     df.dropna(inplace=True)
 
     df_final = df.copy()
-    df_final.description = df.title + ' ' + df.description
-    df_final.drop(columns=['title'], inplace=True)
+    df_final['document'] = df.title + ' ' + df.description
+    df_final.drop(columns=['title', 'description'], inplace=True)
 
     logger.info('Removing non-english rows')
-    df_is_english = df_final.description.apply(text.is_english, args=[
+    df_is_english = df_final.document.apply(text.is_english, args=[
         config_content['clean_dataset']['english_threshold_confidence']
     ])
     df_final.drop(df_final[~df_is_english].index, inplace=True)
 
     logger.info('Formatting text')
-    df_final['clean_description'] = df_final.description.apply(
+    df_final.document = df_final.document.apply(
         text.clean_text, args=[config_content['clean_dataset']['min_token_length']])
-    df_final.drop(df_final[df_final.clean_description.str.len(
+    df_final.drop(df_final[df_final.document.str.len(
     ) < config_content['clean_dataset']['min_tokens_count']].index, inplace=True)
 
     logger.info('Saving full clean dataset')

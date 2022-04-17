@@ -27,7 +27,7 @@ def main(config):
     tfidf_vectorizer = TfidfVectorizer(
         min_df=config_content['build_features']['min_df'])
     df_tfidf = pd.DataFrame(tfidf_vectorizer.fit_transform(
-        df_balanced.clean_description).toarray())
+        df_balanced.document).toarray())
 
     logger.info("Splitting dataset between train and test")
     X_train, X_test, y_train, y_test = train_test_split(df_tfidf, y, stratify=y,
