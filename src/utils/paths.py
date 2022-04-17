@@ -6,6 +6,7 @@ from typing import (
     Iterable,
 )
 
+
 def make_dir_function(
     dir_name: Union[str, Iterable[str]]
 ) -> Callable[..., Path]:
@@ -35,6 +36,9 @@ def make_dir_function(
 
 project_dir = make_dir_function("")
 
-for dir_type in [["data"]]:
+for dir_type in [
+    ["data"],
+    ["models"]
+]:
     dir_var = '_'.join(dir_type) + "_dir"
     exec(f"{dir_var} = make_dir_function({dir_type})")

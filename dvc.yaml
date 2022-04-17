@@ -7,6 +7,7 @@ stages:
       - make_dataset
     outs:
       - data/interim/youtube.csv
+
   clean_dataset:
     cmd:
       - python -m nltk.downloader stopwords
@@ -18,6 +19,7 @@ stages:
       - clean_dataset
     outs:
       - data/processed/youtube.csv
+
   build_features:
     cmd: python src/features/build_features.py --config params.yaml
     deps:
@@ -29,3 +31,14 @@ stages:
     outs:
       - data/processed/train.csv
       - data/processed/test.csv
+
+  train_model:
+    cmd: python src/models/train_model.py --config params.yaml
+    deps:
+      - data/processed/train.csv
+      - src/models/train_model.py
+    params:
+      - base
+      - train_model
+    outs:
+      - models/model.joblib

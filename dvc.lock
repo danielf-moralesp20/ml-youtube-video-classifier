@@ -69,3 +69,27 @@ stages:
     - path: data/processed/youtube.csv
       md5: a7c79d27c25382539d0ba17c5245cf15
       size: 16821662
+  train_model:
+    cmd: python src/models/train_model.py --config params.yaml
+    deps:
+    - path: data/processed/train.csv
+      md5: 08781aadfec5ebcd9a51ff5fadc73bb7
+      size: 8318992
+    - path: src/models/train_model.py
+      md5: d7d68aad1280fedb5ffef56a7b7d1830
+      size: 1391
+    params:
+      params.yaml:
+        base:
+          random_state: 20
+        train_model:
+          cv: 3
+          cv_distributions:
+            n_estimators:
+            - 100
+            - 300
+            - 500
+    outs:
+    - path: models/model.joblib
+      md5: e380072f28ad8f1e37e3680ba039739c
+      size: 2606063

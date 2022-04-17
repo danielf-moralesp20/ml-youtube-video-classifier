@@ -29,3 +29,8 @@ clean_dataset:
 build_features:
   test_size: 0.2
   min_df: 0.05
+
+train_model:
+  cv: 3
+  cv_distributions:
+    n_estimators: [100, 300, 500]
