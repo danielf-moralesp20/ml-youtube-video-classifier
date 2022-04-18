@@ -42,3 +42,15 @@ stages:
       - train_model
     outs:
       - models/model.joblib
+
+  test_model:
+    cmd: python src/models/test_model.py --config params.yaml
+    deps:
+      - data/processed/test.csv
+      - models/model.joblib
+      - src/models/test_model.py
+    params:
+      - test_model
+    metrics:
+      - reports/summary.json:
+          cache: false

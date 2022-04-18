@@ -34,3 +34,5 @@ train_model:
   cv: 3
   cv_distributions:
     n_estimators: [100, 300, 500]
+
+test_model:

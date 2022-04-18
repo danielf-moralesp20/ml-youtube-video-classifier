@@ -76,8 +76,8 @@ stages:
       md5: 08781aadfec5ebcd9a51ff5fadc73bb7
       size: 8318992
     - path: src/models/train_model.py
-      md5: d7d68aad1280fedb5ffef56a7b7d1830
-      size: 1391
+      md5: cd3309f3bbb97677771ec259fdd2e83f
+      size: 1415
     params:
       params.yaml:
         base:
@@ -91,5 +91,24 @@ stages:
             - 500
     outs:
     - path: models/model.joblib
-      md5: e380072f28ad8f1e37e3680ba039739c
-      size: 2606063
+      md5: 59ec6b5148e37bedff818ded7ba62da0
+      size: 4320997
+  test_model:
+    cmd: python src/models/test_model.py --config params.yaml
+    deps:
+    - path: data/processed/test.csv
+      md5: e9b1c8f359cd33954603329d7498925d
+      size: 2086991
+    - path: models/model.joblib
+      md5: 59ec6b5148e37bedff818ded7ba62da0
+      size: 4320997
+    - path: src/models/test_model.py
+      md5: f7ccec7d275328df8598a35336e718e6
+      size: 1193
+    params:
+      params.yaml:
+        test_model:
+    outs:
+    - path: reports/summary.json
+      md5: 0201207da48f94de29610c8cd8a4d2dd
+      size: 116

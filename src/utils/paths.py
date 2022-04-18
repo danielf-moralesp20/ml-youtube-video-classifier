@@ -38,7 +38,8 @@ project_dir = make_dir_function("")
 
 for dir_type in [
     ["data"],
-    ["models"]
+    ["models"],
+    ["reports"]
 ]:
     dir_var = '_'.join(dir_type) + "_dir"
     exec(f"{dir_var} = make_dir_function({dir_type})")

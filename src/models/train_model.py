@@ -17,8 +17,8 @@ def main(config):
     logger.info("Loading train dataset")
     df = pd.read_csv(path.data_dir('processed/train.csv'))
 
-    X = df.drop(columns=['category'])
-    y = df.category
+    X_train = df.drop(columns=['category'])
+    y_train = df.category
 
     logger.info("Searching best estimator")
     rand_search = GridSearchCV(
@@ -27,9 +27,9 @@ def main(config):
         ),
         config_content['train_model']['cv_distributions'],
         cv=config_content['train_model']['cv'],
-        scoring="f1_micro"
+        scoring="f1_macro"
     )
-    rand_search.fit(X, y)
+    rand_search.fit(X_train, y_train)
 
     logger.info(f'Best score: {rand_search.best_score_}')
 
