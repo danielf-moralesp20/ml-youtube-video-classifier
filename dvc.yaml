@@ -51,6 +51,14 @@ stages:
       - src/models/test_model.py
     params:
       - test_model
+    plots:
+      - reports/confusion_matrix_data.csv:
+          template: confusion
+          title: Confusion matrix
+          x: prediction
+          y: real
+      - reports/classification_report_data.csv:
+          template: .dvc/plots/classification_report.json
     metrics:
       - reports/summary.json:
           cache: false

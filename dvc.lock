@@ -103,12 +103,18 @@ stages:
       md5: 59ec6b5148e37bedff818ded7ba62da0
       size: 4320997
     - path: src/models/test_model.py
-      md5: f7ccec7d275328df8598a35336e718e6
-      size: 1193
+      md5: a90fa33dd6ed91fa6a8eadc03d38a700
+      size: 1905
     params:
       params.yaml:
         test_model:
     outs:
+    - path: reports/classification_report_data.csv
+      md5: 95c7fbdf7067c597833cee54eda5798a
+      size: 481
+    - path: reports/confusion_matrix_data.csv
+      md5: e3792bde32b2799e548b1636887a830c
+      size: 49850
     - path: reports/summary.json
       md5: 0201207da48f94de29610c8cd8a4d2dd
       size: 116

@@ -33,6 +33,22 @@ def main(config):
         path.reports_dir('summary.json')
     )
 
+    logger.info("Generating confusion matrix data")
+    df_confusion_matrix = pd.concat([pd.Series(y_hat), y_test], axis=1)
+    df_confusion_matrix.columns = ['prediction', 'real']
+    df_confusion_matrix.to_csv(
+        path.reports_dir("confusion_matrix_data.csv"), index=False
+    )
+
+    logger.info("Generating classification report data")
+    clf_report = classification_report(y_test, y_hat, output_dict=True)
+    df_clf_report = pd.DataFrame(clf_report).T
+    df_clf_report.drop(
+        index=['accuracy', 'macro avg', 'weighted avg'], inplace=True
+    )
+    df_clf_report.index.name = 'class'
+    df_clf_report.to_csv('reports/classification_report_data.csv')
+
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

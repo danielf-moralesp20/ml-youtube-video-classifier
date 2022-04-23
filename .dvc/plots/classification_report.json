@@ -1,0 +1,80 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "values": "<DVC_METRIC_DATA>"
+    },
+    "title": "Classification report",
+    "transform": [
+        {
+            "window": [
+                {
+                    "op": "row_number",
+                    "as": "row_num"
+                }
+            ]
+        },
+        {
+            "filter": {
+                "field": "row_num",
+                "lte": "count"
+            }
+        },
+        {
+            "fold": [
+                "precision",
+                "recall",
+                "f1-score",
+                "support"
+            ]
+        }
+    ],
+    "mark": "text",
+    "encoding": {
+        "y": {
+            "field": "class",
+            "type": "ordinal",
+            "axis": {
+                "labelFontWeight": "bold",
+                "labelFontSize": 12,
+                "title": "Classes",
+                "ticks": false,
+                "domain": false,
+                "titleFontWeight": "bold",
+                "titleFontSize": 15,
+                "titlePadding": 15
+            },
+            "scale": {
+                "padding": 3
+            }
+        },
+        "text": {
+            "field": "value",
+            "type": "nominal",
+            "format": ".5f"
+        },
+        "x": {
+            "field": "key",
+            "type": "nominal",
+            "axis": {
+                "orient": "top",
+                "labelAngle": 0,
+                "title": "Metrics",
+                "ticks": false,
+                "labelFontWeight": "bold",
+                "labelFontSize": 12,
+                "domain": false,
+                "titleFontWeight": "bold",
+                "titleFontSize": 15,
+                "titlePadding": 15
+            },
+            "scale": {
+                "padding": 6
+            }
+        }
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        }
+    }
+}
