@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ml-youtube-video-classifier</title>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body class="bg-secondary">
+    <header class="navbar navbar-dark bg-primary shadow">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex">
+                <div style="padding-right: 7px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-youtube" viewBox="0 0 16 16">
+                        <path
+                            d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                    </svg>
+                </div>
+                <strong>ML youtube video classifier</strong>
+            </a>
+        </div>
+    </header>
+
+    <div class="modal-dialog position-static d-block py-5">
+        <div class="modal-content rounded-5 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h5 class="modal-title">Prediction form</h5>
+            </div>
+
+            <div class="modal-body p-5 pt-0" id="modalBody">
+                <form class="" id="prediction_form">
+                    <div class="form-floating mb-3">
+                        <select id="platformInput" class="form-control rounded-4" required>
+                            <option value="0" selected>Youtube</option>
+                        </select>
+                        <label for="platformInput">Platform</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="url" class="form-control rounded-4" id="urlInput" placeholder="Url" required>
+                        <label for="urlInput">Url</label>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" id="submitButton" type="submit">
+                        Make prediction
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('prediction_form').addEventListener('submit', async function (event) {
+            updateFormButton(true);
+
+            await fetch("http://127.0.0.1:8000/api/v1/estimate", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    platform: parseInt(document.getElementById('platformInput').value),
+                    url: document.getElementById('urlInput').value
+                })
+            }).then(res => showAlert(res, "success"))
+                .catch(error => showAlert(error, "danger"))
+                .finally(() => updateFormButton(false));
+
+        });
+
+        function updateFormButton(isPredicting) {
+            btnSubmit = document.getElementById("submitButton");
+            if (isPredicting) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerHTML = `
+                        Making prediction...
+                        <div class="spinner-border spinner-border-sm" role="status" >
+                            <span class="sr-only"></span>
+                        </div>
+                    `;
+            } else {
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = "Make prediction";
+            }
+        }
+
+        function showAlert(message, type) {
+            var alert = document.createElement('div');
+            var modalBody = document.getElementById("modalBody");
+            alert.innerHTML = `
+                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+
+            modalBody.removeChild(modalBody.lastChild);
+            modalBody.appendChild(alert);
+        }
+    </script>
+</body>
+
+</html>
