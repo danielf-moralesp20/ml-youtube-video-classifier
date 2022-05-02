@@ -44,7 +44,7 @@
                 <form class="" id="prediction_form">
                     <div class="form-floating mb-3">
                         <select id="platformInput" class="form-control rounded-4" required>
-                            <option value="0" selected>Youtube</option>
+                            <option value="youtube" selected>Youtube</option>
                         </select>
                         <label for="platformInput">Platform</label>
                     </div>
@@ -68,7 +68,7 @@
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    platform: parseInt(document.getElementById('platformInput').value),
+                    platform: document.getElementById('platformInput').value,
                     url: document.getElementById('urlInput').value
                 })
             }).then(res => showAlert(res, "success"))
